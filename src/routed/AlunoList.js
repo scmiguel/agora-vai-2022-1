@@ -167,21 +167,20 @@ export default function AlunoList() {
     }
 
     async function fetchData(newState = state) {
-        try {
-            const response = await api.get('aluno')
-            setState({...newState, data: response.data, isDialogOpen: false})
-        }
-        catch(erro) {
-            // Mostrar erro com barra de alerta
-            setState({
-              ...newState,
-              alertMessage: 'ERRO: ' + erro.message,
-              alertSeverity: 'error',
-              isAlertOpen: true
-            })
-        }
-    }
-
+      try {
+          const response = await api.get('aluno').json()
+          setState({...newState, data: response, isDialogOpen: false})
+      }
+      catch(erro) {
+          // Mostrar erro com barra de alerta
+          setState({
+            ...newState,
+            alertMessage: 'ERRO: ' + erro.message,
+            alertSeverity: 'error',
+            isAlertOpen: true
+          })
+      }
+  }
     React.useEffect(() => {
         fetchData()
     }, [])
